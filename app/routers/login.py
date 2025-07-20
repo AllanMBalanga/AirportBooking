@@ -6,9 +6,12 @@ from ..body import Token
 from .. import models, oauth2
 from ..utils import verify
 
-router = APIRouter()
+router = APIRouter(
+    prefix="/login",
+    tags=["Login"]
+)
 
-@router.post("/login", response_model=Token)
+@router.post("/", response_model=Token)
 def login(credentials: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
     try:
         #gets the row of the user that matches the email
